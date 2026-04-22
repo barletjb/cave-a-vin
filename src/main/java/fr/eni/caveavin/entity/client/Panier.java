@@ -24,11 +24,7 @@ public class Panier {
     @Column(name = "SHOPPING_CART_ID", unique = true)
     private Integer id;
 
-    @ToString.Exclude
-    @Column(name = "PASWORD", length = 68, nullable = false)
-    private String password;
-
-    @Column(name = "ORDER_NUMBER", length = 200, nullable = false)
+    @Column(name = "ORDER_NUMBER", length = 200, nullable = true)
     private String numCommande;
 
     @Column(name = "SURNAME", precision = 2, nullable = false)
