@@ -3,8 +3,8 @@ package fr.eni.caveavin.entity.association;
 
 import fr.eni.caveavin.dao.AdresseRepository;
 import fr.eni.caveavin.dao.ClientRepository;
-import fr.eni.caveavin.entity.Adresse;
-import fr.eni.caveavin.entity.Client;
+import fr.eni.caveavin.entity.client.Adresse;
+import fr.eni.caveavin.entity.client.Client;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;

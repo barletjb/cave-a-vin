@@ -1,15 +1,13 @@
 package fr.eni.caveavin.entity;
 
 import fr.eni.caveavin.dao.ClientRepository;
+import fr.eni.caveavin.entity.client.Client;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
-
-
-import java.util.Optional;
 
 @DataJpaTest
 @Slf4j

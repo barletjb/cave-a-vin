@@ -1,4 +1,4 @@
-package fr.eni.caveavin.entity;
+package fr.eni.caveavin.entity.client;
 
 
 import jakarta.persistence.*;
