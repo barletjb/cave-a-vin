@@ -1,10 +1,7 @@
 package fr.eni.caveavin.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
@@ -14,13 +11,13 @@ import lombok.*;
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-@Table(name = "CLIENT")
+@Table(name = "CAV_CLIENT")
 @Entity
 public class Client {
 
     @Id
     @EqualsAndHashCode.Include
-    @Column(name = "PSEUDO", length = 255 ,nullable = false)
+    @Column(name = "PSEUDO", length = 255 ,nullable = false, unique = true)
     private String pseudo;
 
     @ToString.Exclude
@@ -32,5 +29,9 @@ public class Client {
 
     @Column(name = "SURNAME", length = 150 ,nullable = false)
     private String prenom;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "adress_id")
+    private Adresse adresse;
 
 }
