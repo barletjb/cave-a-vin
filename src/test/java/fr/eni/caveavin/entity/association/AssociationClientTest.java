@@ -78,7 +78,7 @@ class AssociationClientTest {
     }
 
     @Test
-    void test_deleteClientWithoutAdress(){
+    void test_orphanRemoval(){
 
         Adresse adresse = Adresse.builder()
                 .rue("Rue Test")
