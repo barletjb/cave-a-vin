@@ -27,14 +27,18 @@ public class Panier {
     @Column(name = "ORDER_NUMBER", length = 200, nullable = true)
     private String numCommande;
 
-    @Column(name = "SURNAME", precision = 2, nullable = false)
+    @Column(name = "SURNAME", precision = 2, nullable = true)
     private float prixTotal;
 
-    @Column(name = "PAID", nullable = false)
+    @Column(name = "PAID", nullable = true)
     private boolean paye;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "SHOPPING_CART_ID")
     @Builder.Default
-    private List<LignePanier> lignePaniers = new ArrayList<>();
+    private List<LignePanier> lignesPanier = new ArrayList<>();
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "CLIENT_PSEUDO", nullable = false)
+    private Client client;
 }

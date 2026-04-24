@@ -7,7 +7,9 @@ import fr.eni.caveavin.entity.Proprio;
 import fr.eni.caveavin.entity.Utilisateur;
 import fr.eni.caveavin.entity.client.Client;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager;
@@ -17,7 +19,7 @@ import java.util.List;
 
 @Slf4j
 @DataJpaTest
-public class HeritageTest {
+class HeritageTest {
 
     @Autowired
     private TestEntityManager entityManager;
@@ -32,7 +34,7 @@ public class HeritageTest {
     ClientRepository clientRepository;
 
     @BeforeEach
-    public void initDB() {
+    void initDB() {
         List<Utilisateur> utilisateurs = new ArrayList<>();
         utilisateurs.add(Utilisateur
                 .builder()
@@ -59,11 +61,42 @@ public class HeritageTest {
                 .prenom("Natalie")
                 .build());
 
-        // Contexte de la DB
         utilisateurs.forEach(e -> {
             entityManager.persist(e);
         });
+        entityManager.flush();
     }
 
-    //TODO
+    @Test
+    void test_findAll_utilisateur(){
+
+        List<Utilisateur> utilisateurs = utilisateurRepository.findAll();
+
+        log.info(utilisateurs.toString());
+
+        Assertions.assertThat(utilisateurs).hasSize(3);
+
+    }
+
+    @Test
+    void test_findAll_proprio(){
+
+        List<Proprio> proprios = proprioRepository.findAll();
+
+        log.info(proprios.toString());
+
+        Assertions.assertThat(proprios).hasSize(1);
+
+    }
+
+    @Test
+    void test_findAll_cLient(){
+
+        List<Client> clients = clientRepository.findAll();
+
+        log.info(clients.toString());
+
+        Assertions.assertThat(clients).hasSize(1);
+
+    }
 }

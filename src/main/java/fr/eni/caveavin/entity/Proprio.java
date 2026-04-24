@@ -17,6 +17,6 @@ import lombok.experimental.SuperBuilder;
 @Entity
 public class Proprio extends Utilisateur{
 
-    @Column(name = "SIRET", unique = true, nullable = false)
+    @Column(name = "SIRET", unique = true)
     private String siret;
 }

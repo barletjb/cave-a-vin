@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
 @SuperBuilder
-@Table(name = "USER")
+@Table(name = "CAV_USER")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Entity
 public class Utilisateur {

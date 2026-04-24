@@ -33,7 +33,7 @@ class OneToManyUniTest {
                 .quantite(3)
                 .prix(3 * 11.45f)
                 .build();
-        panier.getLignePaniers().add(lp);
+        panier.getLignesPanier().add(lp);
         panier.setPrixTotal(lp.getPrix());
 
         entityManager.persist(panier);
@@ -55,7 +55,7 @@ class OneToManyUniTest {
                 .quantite(4)
                 .prix(4 * 23.95f)
                 .build();
-        panier.getLignePaniers().add(lp);
+        panier.getLignesPanier().add(lp);
         panier.setPrixTotal(lp.getPrix());
 
         final Panier panierDB = panierRepository.save(panier);
@@ -63,7 +63,7 @@ class OneToManyUniTest {
         log.info(panierDB.toString());
 
         Assertions.assertThat(panierDB.getId()).isNotNull();
-        Assertions.assertThat(panierDB.getLignePaniers()).hasSize(1);
+        Assertions.assertThat(panierDB.getLignesPanier()).hasSize(1);
 
     }
 
@@ -76,7 +76,7 @@ class OneToManyUniTest {
                 .quantite(10)
                 .prix(10 * 23.95f)
                 .build();
-        panier.getLignePaniers().add(lp);
+        panier.getLignesPanier().add(lp);
         panier.setPrixTotal(panier.getPrixTotal() + lp.getPrix());
 
         final Panier panierDB = panierRepository.save(panier);
@@ -84,7 +84,7 @@ class OneToManyUniTest {
         log.info(panierDB.toString());
 
         Assertions.assertThat(panierDB.getId()).isNotNull();
-        Assertions.assertThat(panierDB.getLignePaniers()).hasSize(2);
+        Assertions.assertThat(panierDB.getLignesPanier()).hasSize(2);
 
     }
 
@@ -109,11 +109,11 @@ class OneToManyUniTest {
 
         List<Integer> listLignePanier = new ArrayList<>();
 
-        for(LignePanier lp: panier.getLignePaniers()){
+        for(LignePanier lp: panier.getLignesPanier()){
             listLignePanier.add(lp.getId());
         }
 
-        panier.getLignePaniers().clear();
+        panier.getLignesPanier().clear();
         panierRepository.delete(panier);
 
         Panier p = entityManager.find(Panier.class, panier.getId());
