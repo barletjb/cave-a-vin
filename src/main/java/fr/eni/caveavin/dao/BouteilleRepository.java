@@ -13,4 +13,9 @@ public interface BouteilleRepository extends JpaRepository<Bouteille, Integer> {
 
     List<Bouteille> findBouteillesByCouleur(Couleur couleur);
 
+    List<Bouteille> findByRegion(Region rDB);
+
+    List<Bouteille> findByCouleur(Couleur cDB);
+
+    Bouteille findByNom(String nom);
 }
