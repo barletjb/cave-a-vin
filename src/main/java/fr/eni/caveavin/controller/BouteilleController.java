@@ -1,6 +1,5 @@
 package fr.eni.caveavin.controller;
 
-import fr.eni.caveavin.dao.BouteilleRepository;
 import fr.eni.caveavin.entity.vin.Bouteille;
 import fr.eni.caveavin.service.BouteilleService;
 import lombok.RequiredArgsConstructor;
@@ -46,4 +45,34 @@ public class BouteilleController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
+    @GetMapping("/region/{id}")
+    public ResponseEntity<?> getBottlebyRegion(@PathVariable("id") String id) {
+
+        try {
+            int idRegion = Integer.parseInt(id);
+            return ResponseEntity.ok(bouteilleService.chargerBouteillesParRegion(idRegion));
+
+        } catch (NumberFormatException e){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("L'id doit etre un entier ");
+        } catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/couleur/{id}")
+    public ResponseEntity<?> getBottlebyColor(@PathVariable("id") String id) {
+
+        try {
+            int idCouleur = Integer.parseInt(id);
+            return ResponseEntity.ok(bouteilleService.chargerBouteillesParCouleur(idCouleur));
+
+        } catch (NumberFormatException e){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("L'id doit etre un entier ");
+        } catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+
 }
