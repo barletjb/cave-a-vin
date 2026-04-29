@@ -14,7 +14,7 @@ public interface BouteilleService {
 
 	List<Bouteille> chargerBouteillesParCouleur(int idCouleur);
 	
-	Bouteille ajouter(Bouteille bouteille);
-	
+	void ajouter(Bouteille bouteille);
+
 	void supprimer(int idBouteille);
 }

@@ -2,13 +2,11 @@ package fr.eni.caveavin.controller;
 
 import fr.eni.caveavin.entity.vin.Bouteille;
 import fr.eni.caveavin.service.BouteilleService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,10 +37,8 @@ public class BouteilleController {
             int idBouteille = Integer.parseInt(id);
             return ResponseEntity.ok(bouteilleService.chargerBouteilleParId(idBouteille));
 
-        } catch (NumberFormatException e){
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("L'id doit etre un entier ");
-        } catch (RuntimeException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (NumberFormatException e) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("L'id doit etre un entier");
         }
     }
 
@@ -53,10 +49,8 @@ public class BouteilleController {
             int idRegion = Integer.parseInt(id);
             return ResponseEntity.ok(bouteilleService.chargerBouteillesParRegion(idRegion));
 
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("L'id doit etre un entier ");
-        } catch (RuntimeException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
@@ -67,12 +61,45 @@ public class BouteilleController {
             int idCouleur = Integer.parseInt(id);
             return ResponseEntity.ok(bouteilleService.chargerBouteillesParCouleur(idCouleur));
 
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("L'id doit etre un entier ");
-        } catch (RuntimeException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
+    @PostMapping
+    public ResponseEntity<?> createBottle(@Valid @RequestBody Bouteille bouteille) {
 
+        try {
+            bouteilleService.ajouter(bouteille);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Erreur lors de la création");
+        }
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateBottle(@Valid @RequestBody Bouteille bouteille) {
+
+        try {
+            bouteilleService.ajouter(bouteille);
+            return ResponseEntity.status(HttpStatus.OK).body("Modification effectuée");
+
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Erreur lors de la modification");
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteBottle(@PathVariable String id) {
+
+        try {
+            bouteilleService.supprimer(Integer.parseInt(id));
+            return ResponseEntity.status(HttpStatus.OK).body("Suppression effectuée");
+        } catch (NumberFormatException e) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("L'id doit etre un entier");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Erreur lors de la suppression");
+        }
+    }
 }
